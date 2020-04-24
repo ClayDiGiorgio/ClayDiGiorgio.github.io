@@ -1053,6 +1053,7 @@
   }
 
   function loadMapFromFile() {
+    console.log("Loading map!");
     loadImage(function(image) {
       var mapJSONString = steg.decode(image.src, {
         height: image.height,
