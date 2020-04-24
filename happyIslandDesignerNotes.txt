@@ -18,6 +18,28 @@ when the json loads, there are two categories (not sure where paths go yet)
         
         each terrain type (landlow, landmid, landhi, sand, rock) has its own array (this format allows neighboring tiles to exist)
     
+        if there are bordering tiles of the same type, they DO NOT repeat vertices. IN FACT, any vertex that would appear multiple times does not appear at all. The effect is that only the outline of the shape formed by that tiletype is stored. FURTHERMORE, these points are stored in clockwise order
+        ex:
+            ##O
+            OOO
+            
+            The # tile type will have points [0,0, 2,0, 2,2, 0,2]
+        // wow, this is really very nice
+        
+        all tiles at height 2 automatically have a tile of height 1 beneath them, meaning every point in "level3" will also
+        be in "level2" and "level1" and every point in "level2" will be in "level1"
+        // WOAH, SUPER NICE
+            note: the way that this is set up, "sand" works the same as "level0" would if it existed
+            
+        OH MY GOSH!!!!!
+        When there are disjoint polygons, they each show up in their own array
+        ex:
+            ##O#O
+            OOOOO
+            
+            the # tiletype will have the array
+            [[0,0, 2,0, 2,2, 0,2], [3,0, 4,0, 4,1, 3,1]]
+    
     paths seem to be done the same way, with entries for them listed below. HOWEVER, these keys will not be listed in the json AT ALL if that given path type isn't present on the map
         pathBrick
         pathDirt
