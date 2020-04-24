@@ -1058,7 +1058,8 @@
         height: image.height,
         width: image.width,
       });
-      window.print(mapJSONString);
+      
+      console.log(mapJSONString);
       clearMap();
 
       var json;
