@@ -18,8 +18,8 @@ function loadJSONfromImage() {
   image = this;
   
   console.log("image width and height");
-  console.log(img.width);
-  console.log(img.height);
+  console.log(image.width);
+  console.log(image.height);
           
   var mapJSONString = steg.decode(image.src, {
     height: image.height,
@@ -37,6 +37,6 @@ function loadJSONfromImage() {
     }
   }
   console.log("json read:");
-console.log(json);      
+  console.log(json);      
   return json;
 }
