@@ -19,6 +19,8 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 
 function rebuildScene() {
+    imageRead = false; 
+    
     if (mapJSON == null)
         return null;
     
