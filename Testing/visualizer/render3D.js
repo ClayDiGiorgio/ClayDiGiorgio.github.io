@@ -21,6 +21,8 @@ window.addEventListener('DOMContentLoaded', function() {
 function rebuildScene() {
     imageRead = false; 
     
+    console.log("building new scene");
+    
     if (mapJSON == null)
         return null;
     
@@ -58,7 +60,7 @@ function rebuildScene() {
     return createScene();
 }
 
-function buildTerrainMesh(scene, layerHeight) {
+function buildTerrainMesh(scene) {
     var terrainTypes =    ["level1",  "level2", "level3", "rock",  "sand"];
     var terrainTallness = [0.5,       2,        2,        0.6,     0.1]; // how high the layer is compared to the one beneath it
     var terrainHeights  = [0          0.5,      2.5       0.6      0.0]; // how high the base of the layer is
