@@ -5,21 +5,22 @@ window.addEventListener('load', function() {
       if (this.files && this.files[0]) {
           var img = document.querySelector('img');  // $('img')[0]
           img.src = URL.createObjectURL(this.files[0]); // set src to blob url
+          img.onload = loadJSONfromImage;
           
-          //img.onload = imageIsLoaded;
-          console.log("image width and height");
-          console.log(img.width);
-          console.log(img.height);
+          var json = loadJSONfromImage();
           
-          var json = loadJSONfromImage(img);
-          console.log("json read:");
-          console.log(json);
       }
   });
 });
 
 // Below function modified from original source for Happy Island Designer
-function loadJSONfromImage(image) {
+function loadJSONfromImage() {
+  image = this;
+  
+  console.log("image width and height");
+  console.log(img.width);
+  console.log(img.height);
+          
   var mapJSONString = steg.decode(image.src, {
     height: image.height,
     width: image.width,
@@ -35,6 +36,7 @@ function loadJSONfromImage(image) {
         json = JSON.parse(LZString.decompress(mapJSONString))
     }
   }
-  
+  console.log("json read:");
+console.log(json);      
   return json;
 }
