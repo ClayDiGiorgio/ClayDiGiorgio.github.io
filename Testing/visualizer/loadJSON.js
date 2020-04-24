@@ -1,3 +1,5 @@
+var mapJSON;
+
 // below function modified from clabe45 via https://stackoverflow.com/a/45931408
 window.addEventListener('load', function() {
   document.querySelector('input[type="file"]').addEventListener('change', function() {
@@ -38,5 +40,5 @@ function loadJSONfromImage() {
   }
   console.log("json read:");
   console.log(json);      
-  return json;
+  mapJSON = json;
 }
