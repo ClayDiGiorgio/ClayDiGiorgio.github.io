@@ -1058,8 +1058,6 @@
         height: image.height,
         width: image.width,
       });
-      
-      console.log(mapJSONString);
       clearMap();
 
       var json;
@@ -1072,6 +1070,9 @@
           json = JSON.parse(LZString.decompress(mapJSONString))
         }
       }
+      
+      console.log("Below is the map json!");
+      console.log(json);
       var map = decodeMap(json);
 
       setNewMapData(map);
