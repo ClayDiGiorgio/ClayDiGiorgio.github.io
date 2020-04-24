@@ -13,6 +13,7 @@ window.addEventListener('load', function() {
   });
 });
 
+// Below function modified from original source for Happy Island Designer
 function loadJSONfromImage(image) {
   var mapJSONString = steg.decode(image.src, {
     height: image.height,
