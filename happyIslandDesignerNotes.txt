@@ -1,0 +1,32 @@
+when the json loads, there are two categories (not sure where paths go yet)
+"objects" which lists the placeable objects
+    each object type has its own array
+    in this array are the x, y coordinates of the top left of the object
+        for example, `construction_bridgeStoneHorizontal": [69,79]` describes a horizontal stone bridge with a top left corner at x=69, y=79, where (0,0) is the top left
+    if there are multiple of the same object, then their coordinates will all be listed in the same array
+        `"construction_bridgeStoneVertical": [0, 90, 6, 0]`
+        this describes two vertical stone bridges, one with a top left corner at (0, 90) and one with a top left corner at (6, 0)
+"drawing" which lists the terrain
+    water 
+        the default terrain tile
+        when nothing is listed for a given tile, it's water
+    
+    each tile appears to have 8 entries
+        when the only map tile was sand at square (0,0),
+        the sand array looked like this: [1,0, 1,1, 0,1, 0,0]
+        I'm guessing right now that every two entries in one of the "drawing" arrays (such as "sand") represents one of the crossing points of the gridlines. rather than the squares being painted, or the squares turned into triangles, the crossings are painted instead
+        
+        each terrain type (landlow, landmid, landhi, sand, rock) has its own array (this format allows neighboring tiles to exist)
+    
+    paths seem to be done the same way, with entries for them listed below. HOWEVER, these keys will not be listed in the json AT ALL if that given path type isn't present on the map
+        pathBrick
+        pathDirt
+        pathSand
+        pathStone
+    
+    json entries
+        level1
+        level2
+        level3
+        rock
+        sand
