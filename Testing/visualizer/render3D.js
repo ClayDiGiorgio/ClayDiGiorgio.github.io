@@ -38,44 +38,26 @@ function rebuildScene(engine, canvas) {
         // Create a basic BJS Scene object.
         var scene = new BABYLON.Scene(engine);
 
-        // Create a FreeCamera, and set its position to (x:0, y:5, z:-10).
-        var camera = new BABYLON.UniversalCamera('camera', new BABYLON.Vector3(0, 5,-10), scene);
-
-        // Target the camera to scene origin.
+        // Create a camera that translates with WSAD+QE, irregardless of facing
+        // direction, and then remove the ability to look around
+        var camera = new BABYLON.FlyCamera('camera', new BABYLON.Vector3(0, 5,-10), scene);
+        camera.inputs.attached.mouse.detachControl();
         camera.setTarget(BABYLON.Vector3.Zero());
-
-        // Attach the camera to the canvas.
         camera.attachControl(canvas, false);
 
         // Create a basic light, aiming 0,1,0 - meaning, to the sky.
         var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0,1,0), scene);
-// 
-//         // Create a built-in "sphere" shape. 
-//         var sphere = BABYLON.MeshBuilder.CreateSphere('sphere', {segments:16, diameter:2}, scene);
-// 
-//         // Move the sphere upward 1/2 of its height.
-//         sphere.position.y = 1;
-// 
-//         // Create a built-in "ground" shape.
-//         var ground = BABYLON.MeshBuilder.CreateGround('ground1', {height:6, width:6, subdivisions: 2}, scene);
         
+        // build the terrain
         buildTerrainMesh(scene);
         
+        // set up the water
         var waterSize = 150;
         var water = BABYLON.MeshBuilder.CreateGround('water', {height:waterSize, width:waterSize, subdivisions: 2}, scene);
-        water.position.x = -waterSize/2.0;
+        water.position.x = waterSize/2.0;
         water.position.y = 0;
         water.position.z = -waterSize/2.0;
         water.material = buildSimpleMaterial(hexToRGB("83e1c3"), scene);
-        
-        // test Mesh
-        
-        /*var vertices = [
-            
-        ];
-        var polygonTriangles = new BABYLON.PolygonMeshBuilder(terrainTypes[i]+"_polygon"+j, vertices, scene);
-        var polygonMesh = polygonTriangles.build(null, terrainTallness[i]);
-        */    
         
         // Return the created scene.
         return scene;
@@ -140,7 +122,7 @@ function buildTerrainMesh(scene) {
             var vertices = [];
             for(var k = 0; k < polygon.length-1; k += 2) {
                 // the mesh was appearing inverted compared to the map, so I made every coordinate negative
-                vertices.push(new BABYLON.Vector2(-polygon[k], -polygon[k+1]));
+                vertices.push(new BABYLON.Vector2(polygon[k], -polygon[k+1]));
             }
             
             // I DON'T EVEN NEED TO BUILD A HEIGHTMAP OR WORRY ABOUT CLIFFS
