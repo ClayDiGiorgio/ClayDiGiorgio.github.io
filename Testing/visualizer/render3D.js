@@ -52,6 +52,7 @@ function rebuildScene(engine, canvas) {
 //         var ground = BABYLON.MeshBuilder.CreateGround('ground1', {height:6, width:6, subdivisions: 2}, scene);
         
         buildTerrainMesh(scene);
+        var ground = BABYLON.MeshBuilder.CreateGround('ground1', {height:6, width:6, subdivisions: 2}, scene);
 
         // Return the created scene.
         return scene;
