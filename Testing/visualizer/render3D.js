@@ -57,6 +57,15 @@ function rebuildScene(engine, canvas) {
         ground.position.y = 0;
         ground.position.z = 0;
         
+        // test Mesh
+        
+        /*var vertices = [
+            
+        ];
+        var polygonTriangles = new BABYLON.PolygonMeshBuilder(terrainTypes[i]+"_polygon"+j, vertices, scene);
+        var polygonMesh = polygonTriangles.build(null, terrainTallness[i]);
+        */    
+        
         // Return the created scene.
         return scene;
     };
@@ -92,7 +101,7 @@ function buildTerrainMesh(scene) {
             
             var vertices = [];
             for(var k = 0; k < polygon.length-1; k += 2) {
-                vertices.push(new BABYLON.Vector2(polygon[j], polygon[j+1]));
+                vertices.push(new BABYLON.Vector2(polygon[k], polygon[k+1]));
             }
             
             // I DON'T EVEN NEED TO BUILD A HEIGHTMAP OR WORRY ABOUT CLIFFS
