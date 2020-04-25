@@ -110,12 +110,11 @@ function buildTerrainMesh(scene) {
     
     // build materials from terrainColors
     var terrainMaterials = {
-        "sand": buildSimpleMaterial(terrainColors["sand"], scene);
-        "rock": buildSimpleMaterial(terrainColors["rock"], scene);
-        "level1": buildSimpleMaterial(terrainColors["level1"], scene);
-        "level2": buildSimpleMaterial(terrainColors["level2"], scene);
-        "level3": buildSimpleMaterial(terrainColors["level3"], scene);
-        
+        "sand": buildSimpleMaterial(terrainColors["sand"], scene),
+        "rock": buildSimpleMaterial(terrainColors["rock"], scene),
+        "level1": buildSimpleMaterial(terrainColors["level1"], scene),
+        "level2": buildSimpleMaterial(terrainColors["level2"], scene),
+        "level3": buildSimpleMaterial(terrainColors["level3"], scene)
     };
     
     for(var i = 0; i < terrainTypes.length; i++) {
