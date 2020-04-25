@@ -41,6 +41,7 @@ function rebuildScene(engine, canvas) {
         // Create a camera that translates with WSAD+QE, irregardless of facing
         // direction, and then remove the ability to look around
         var camera = new BABYLON.FlyCamera('camera', new BABYLON.Vector3(0, 5,-10), scene);
+        camera.cameraDirection = new BABYLON.Vector3(0, 0, 0);
         camera.inputs.attached.mouse.detachControl();
         camera.setTarget(BABYLON.Vector3.Zero());
         camera.attachControl(canvas, false);
