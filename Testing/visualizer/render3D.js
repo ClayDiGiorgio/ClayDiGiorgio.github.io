@@ -60,10 +60,12 @@ function rebuildScene(engine, canvas) {
 //         var ground = BABYLON.MeshBuilder.CreateGround('ground1', {height:6, width:6, subdivisions: 2}, scene);
         
         buildTerrainMesh(scene);
-        var water = BABYLON.MeshBuilder.CreateGround('water', {height:90, width:90, subdivisions: 2}, scene);
-        water.position.x = 45;
+        
+        var waterSize = 150;
+        var water = BABYLON.MeshBuilder.CreateGround('water', {height:waterSize, width:waterSize, subdivisions: 2}, scene);
+        water.position.x = -waterSize/2.0;
         water.position.y = 0;
-        water.position.z = 45;
+        water.position.z = -waterSize/2.0;
         water.material = buildSimpleMaterial(hexToRGB("83e1c3"), scene);
         
         // test Mesh
@@ -137,7 +139,8 @@ function buildTerrainMesh(scene) {
             
             var vertices = [];
             for(var k = 0; k < polygon.length-1; k += 2) {
-                vertices.push(new BABYLON.Vector2(polygon[k], polygon[k+1]));
+                // the mesh was appearing inverted compared to the map, so I made every coordinate negative
+                vertices.push(new BABYLON.Vector2(-polygon[k], -polygon[k+1]));
             }
             
             // I DON'T EVEN NEED TO BUILD A HEIGHTMAP OR WORRY ABOUT CLIFFS
