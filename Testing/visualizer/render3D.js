@@ -6,9 +6,8 @@ window.addEventListener('DOMContentLoaded', function() {
     var scene = null;
     
     engine.runRenderLoop(function() {
-        console.log("loop running");
         if (imageRead)
-            scene = rebuildScene();
+            scene = rebuildScene(engine, canvas);
         
         if (scene != null)
             scene.render();
@@ -19,7 +18,7 @@ window.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-function rebuildScene() {
+function rebuildScene(engine, canvas) {
     imageRead = false; 
     
     console.log("building new scene");
