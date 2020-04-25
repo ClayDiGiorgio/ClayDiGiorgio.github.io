@@ -1,4 +1,4 @@
-var mapJSON = {"notloaded":true};
+var mapJSON = null;
 var imageRead = false;
 
 // below function modified from clabe45 via https://stackoverflow.com/a/45931408
@@ -12,8 +12,7 @@ window.addEventListener('load', function() {
           
           document.querySelector('img').src = img.src;
           
-          var json = loadJSONfromImage();
-          imageRead = true;
+          loadJSONfromImage();
       }
   });
 });
@@ -42,6 +41,11 @@ function loadJSONfromImage() {
     }
   }
   console.log("json read:");
-  console.log(json);      
+  console.log(json);   
+  
+  if (json == null)
+    return;
+  
+  imageRead = true;
   mapJSON = json;
 }
