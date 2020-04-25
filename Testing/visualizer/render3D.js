@@ -31,7 +31,7 @@ function rebuildScene(engine, canvas) {
         var scene = new BABYLON.Scene(engine);
 
         // Create a FreeCamera, and set its position to (x:0, y:5, z:-10).
-        var camera = new BABYLON.FreeCamera('camera', new BABYLON.Vector3(0, 5,-10), scene);
+        var camera = new BABYLON.UniversalCamera('camera', new BABYLON.Vector3(0, 5,-10), scene);
 
         // Target the camera to scene origin.
         camera.setTarget(BABYLON.Vector3.Zero());
@@ -75,15 +75,33 @@ function rebuildScene(engine, canvas) {
 
 function buildTerrainMesh(scene) {
     var terrainTypes =    ["level1",  "level2", "level3", "rock",  "sand"];
-    var terrainTallness = [0.5,       2,        2,        0.6,     0.1]; // how high the layer is compared to the one beneath it
-    var terrainHeights  = [0,         0.5,      2.5,      0.6,     0.0]; // how high the base of the layer is
-    var terrainColors =   [[0,0,0],   [0,0,0],  [0,0,0],  [0,0,0], [0,0,0]];
-    
+    var terrainTallness = { //[0.5,       2,        2,        0.6,     0.1]; // how high the layer is compared to the one beneath it
+        "sand": 0.1,
+        "rock": 0.6,
+        "level1": 0.5,
+        "level2": 2,
+        "level3": 2
+    };
+    var terrainHeights  = { // how high the base of the layer is
+        "sand": 0,
+        "rock": terrainTallness["sand"],
+        "level1": terrainTallness["sand"],
+        "level2": terrainTallness["sand"]+terrainTallness["level1"],
+        "level3": terrainTallness["sand"]+terrainTallness["level1"]+terrainTallness["level2"]
+    };
+    var terrainColors = { 
+        "sand": [0,0,0],
+        "rock": [0,0,0],
+        "level1": [0,0,0],
+        "level2": [0,0,0],
+        "level3": [0,0,0]
+    };
     console.log("building from: ");
     console.log(mapJSON);
     
     for(var i = 0; i < terrainTypes.length; i++) {
-        var layer =  mapJSON["drawing"][terrainTypes[i]];
+        var layerName = terrainTypes[i];
+        var layer =  mapJSON["drawing"][layerName];
         
         console.log("building layer " + terrainTypes[i]);
         
@@ -110,8 +128,8 @@ function buildTerrainMesh(scene) {
             // You guys made this so easy to do
             
             var polygonTriangles = new BABYLON.PolygonMeshBuilder(terrainTypes[i]+"_polygon"+j, vertices, scene);
-            var polygonMesh = polygonTriangles.build(null, terrainTallness[i]);
-            polygonMesh.position.y = terrainHeights[i];
+            var polygonMesh = polygonTriangles.build(null, terrainTallness[layerName]);
+            polygonMesh.position.y = terrainHeights[layerName];
         }
     }
 }
