@@ -53,7 +53,10 @@ function rebuildScene(engine, canvas) {
         
         buildTerrainMesh(scene);
         var ground = BABYLON.MeshBuilder.CreateGround('ground1', {height:6, width:6, subdivisions: 2}, scene);
-
+        ground.position.x = 0;
+        ground.position.y = 0;
+        ground.position.z = 0;
+        
         // Return the created scene.
         return scene;
     };
@@ -67,8 +70,13 @@ function buildTerrainMesh(scene) {
     var terrainHeights  = [0,         0.5,      2.5,      0.6,     0.0]; // how high the base of the layer is
     var terrainColors =   [[0,0,0],   [0,0,0],  [0,0,0],  [0,0,0], [0,0,0]];
     
+    console.log("building from: ");
+    console.log(mapJSON);
+    
     for(var i = 0; i < terrainTypes.length; i++) {
         var layer =  mapJSON["drawing"][terrainTypes[i]];
+        
+        console.log("building layer " + terrainTypes[i]);
         
         // each layer is an array of arrays
         // each element of layer is its own polygon
@@ -76,6 +84,8 @@ function buildTerrainMesh(scene) {
         // THANK YOU!! :)
         for(var j = 0; j < layer.length; j++) {
             var polygon = layer[j];
+            
+            console.log("polygon " + j);
             
             // This is SUUUUUUPER easy thanks to the way Happy Island Designer stores its data
             // and Babylon.js' PolygonMeshBuilder. Check this out:
