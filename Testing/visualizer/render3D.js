@@ -52,10 +52,10 @@ function rebuildScene(engine, canvas) {
 //         var ground = BABYLON.MeshBuilder.CreateGround('ground1', {height:6, width:6, subdivisions: 2}, scene);
         
         buildTerrainMesh(scene);
-        var ground = BABYLON.MeshBuilder.CreateGround('ground1', {height:6, width:6, subdivisions: 2}, scene);
-        ground.position.x = 0;
+        var ground = BABYLON.MeshBuilder.CreateGround('ground1', {height:90, width:90, subdivisions: 2}, scene);
+        ground.position.x = 45;
         ground.position.y = 0;
-        ground.position.z = 0;
+        ground.position.z = 45;
         
         // test Mesh
         
@@ -99,6 +99,16 @@ function buildTerrainMesh(scene) {
     console.log("building from: ");
     console.log(mapJSON);
     
+    // build materials from terrainColors
+    var terrainMaterials = {
+        "sand": buildSimpleMaterial(terrainColors["sand"], scene);
+        "rock": buildSimpleMaterial(terrainColors["rock"], scene);
+        "level1": buildSimpleMaterial(terrainColors["level1"], scene);
+        "level2": buildSimpleMaterial(terrainColors["level2"], scene);
+        "level3": buildSimpleMaterial(terrainColors["level3"], scene);
+        
+    };
+    
     for(var i = 0; i < terrainTypes.length; i++) {
         var layerName = terrainTypes[i];
         var layer =  mapJSON["drawing"][layerName];
@@ -129,8 +139,21 @@ function buildTerrainMesh(scene) {
             
             var polygonTriangles = new BABYLON.PolygonMeshBuilder(terrainTypes[i]+"_polygon"+j, vertices, scene);
             var polygonMesh = polygonTriangles.build(null, terrainTallness[layerName]);
-            polygonMesh.position.y = terrainHeights[layerName];
+            polygonMesh.position.y = terrainHeights[layerName] + (terrainTallness[layerName]/2.0); // meshes are positioned based on their centers, so in order to get a mesh's base at a certain height, you also have to add half of its height
+        
+            polygonMesh.material = terrainMaterials[layerName];
         }
     }
 }
 
+// below function modified from https://doc.babylonjs.com/babylon101/materials#color
+function buildSimpleMaterial(color, scene) {
+    var myMaterial = new BABYLON.StandardMaterial("myMaterial", scene);
+
+    myMaterial.diffuseColor = new BABYLON.Color3(color[0], color[1], color[2]);
+    //myMaterial.specularColor = new BABYLON.Color3(0.5, 0.6, 0.87);
+    //myMaterial.emissiveColor = new BABYLON.Color3(1, 1, 1);
+    myMaterial.ambientColor = new BABYLON.Color3(color[0], color[1], color[2]);
+
+    return myMaterial;
+}
