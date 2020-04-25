@@ -6,6 +6,7 @@ window.addEventListener('DOMContentLoaded', function() {
     var scene = null;
     
     engine.runRenderLoop(function() {
+        console.log("loop running");
         if (imageRead)
             scene = rebuildScene();
         
