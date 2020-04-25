@@ -81,7 +81,7 @@ function buildTerrainMesh(scene) {
             
             var vertices = [];
             for(var k = 0; k < polygon.length-1; k += 2) {
-                vertices.append(new BABYLON.Vector2(polygon[j], polygon[j+1]));
+                vertices.push(new BABYLON.Vector2(polygon[j], polygon[j+1]));
             }
             
             // I DON'T EVEN NEED TO BUILD A HEIGHTMAP OR WORRY ABOUT CLIFFS
