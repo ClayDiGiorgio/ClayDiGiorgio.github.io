@@ -91,7 +91,7 @@ function buildTerrainMesh(scene) {
         "level2": 2,
         "level3": 2
     };
-    var terrainHeights  = { // how high the base of the layer is
+    var terrainHeights = { // how high the base of the layer is
         "sand": 0,
         "rock": terrainTallness["sand"],
         "level1": terrainTallness["sand"],
