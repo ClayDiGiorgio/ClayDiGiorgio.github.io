@@ -120,7 +120,7 @@ function buildTerrainMesh(scene) {
             // and Babylon.js' PolygonMeshBuilder. Check this out:
             
             var vertices = [];
-            for(var k = 0; k < polygon.length-1; k += 2) {
+            for(var k = polygon.length-2; k >= 2; k -= 2) {
                 // the mesh was appearing inverted compared to the map, so I made every coordinate negative
                 vertices.push(new BABYLON.Vector2(polygon[k], -polygon[k+1]));
             }
