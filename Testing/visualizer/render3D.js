@@ -18,6 +18,14 @@ window.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// colors
+// layer3 4ac34e
+// layer2 35a043
+// layer1 347941
+// stone  737a89
+// sand   eee9a9
+// water  83e1c3
+
 function rebuildScene(engine, canvas) {
     imageRead = false; 
     
@@ -52,10 +60,11 @@ function rebuildScene(engine, canvas) {
 //         var ground = BABYLON.MeshBuilder.CreateGround('ground1', {height:6, width:6, subdivisions: 2}, scene);
         
         buildTerrainMesh(scene);
-        var ground = BABYLON.MeshBuilder.CreateGround('ground1', {height:90, width:90, subdivisions: 2}, scene);
-        ground.position.x = 45;
-        ground.position.y = 0;
-        ground.position.z = 45;
+        var water = BABYLON.MeshBuilder.CreateGround('water', {height:90, width:90, subdivisions: 2}, scene);
+        water.position.x = 45;
+        water.position.y = 0;
+        water.position.z = 45;
+        water.material = buildSimpleMaterial(hexToRGB("83e1c3"), scene);
         
         // test Mesh
         
@@ -90,11 +99,11 @@ function buildTerrainMesh(scene) {
         "level3": terrainTallness["sand"]+terrainTallness["level1"]+terrainTallness["level2"]
     };
     var terrainColors = { 
-        "sand": [0,0,0],
-        "rock": [0,0,0],
-        "level1": [0,0,0],
-        "level2": [0,0,0],
-        "level3": [0,0,0]
+        "sand": hexToRGB("eee9a9"),
+        "rock": hexToRGB("737a89"),
+        "level1": hexToRGB("347941"),
+        "level2": hexToRGB("35a043"),
+        "level3": hexToRGB("4ac34e")
     };
     console.log("building from: ");
     console.log(mapJSON);
@@ -146,6 +155,7 @@ function buildTerrainMesh(scene) {
     }
 }
 
+
 // below function modified from https://doc.babylonjs.com/babylon101/materials#color
 function buildSimpleMaterial(color, scene) {
     var myMaterial = new BABYLON.StandardMaterial("myMaterial", scene);
@@ -156,4 +166,19 @@ function buildSimpleMaterial(color, scene) {
     myMaterial.ambientColor = new BABYLON.Color3(color[0], color[1], color[2]);
 
     return myMaterial;
+}
+
+function hexToRGB(hex) {
+    // I was lazy :P
+    var parseDigit = {
+        "0": 0, "1":1, "2":2, "3":3, "4":4, "5":5, "6":6, "7":7, "8":8, "9":9, "a":10, "b":11, "c":12, "d":13, "e":14, "f":15 
+    };
+    var color = [0,0,0];
+    
+    for (var i = 0; i < 6-1; i += 2) {
+        var value = 16*parseDigit[hex[i]]+parseDigit[hex[i+1]];
+        color[i/2] = value / 256.0;
+    }
+    
+    return color;
 }
