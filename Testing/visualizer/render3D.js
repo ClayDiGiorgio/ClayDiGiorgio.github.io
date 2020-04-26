@@ -298,7 +298,7 @@ function hexToRGB(hex) {
     
     return color;
 }
-
+/*
 function registerWorldWarpShader() {
     BABYLON.Effect.ShadersStore["customVertexShader"]=                
         "precision highp float;\r\n"+
@@ -335,7 +335,7 @@ function registerWorldWarpShader() {
         "    gl_Position = warp(worldViewProjection * vec4(position, 1.0), 0.01);\r\n"+
 
         "    vUV = uv;\r\n"+
-        "}\r\n"+
+        "}\r\n";
 
 
         BABYLON.Effect.ShadersStore["customFragmentShader"]=                "precision highp float;\r\n"+
@@ -362,4 +362,4 @@ function registerWorldWarpShader() {
                 uniforms: ["world", "worldView", "worldViewProjection", "view", "projection"]
             }
         );
-}
+}*/
