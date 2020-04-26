@@ -26,8 +26,11 @@ window.addEventListener('DOMContentLoaded', function() {
 // sand   eee9a9
 // water  83e1c3
 
+var meshes = [];
+
 function rebuildScene(engine, canvas) {
     imageRead = false; 
+    meshes.clear();
     
     console.log("building new scene");
     
@@ -38,19 +41,59 @@ function rebuildScene(engine, canvas) {
         // Create a basic BJS Scene object.
         var scene = new BABYLON.Scene(engine);
 
-        // Create a camera that translates with WSAD+QE, irregardless of facing
-        // direction, and then remove the ability to look around
-        var camera = new BABYLON.FlyCamera('camera', new BABYLON.Vector3(0, 5,-10), scene);
-        camera.cameraDirection = new BABYLON.Vector3(0, 0, 0);
-        camera.inputs.attached.mouse.detachControl();
-        camera.setTarget(BABYLON.Vector3.Zero());
+        // Create a camera that doesn't move
+        var camera = new BABYLON.FollowCamera('camera', new BABYLON.Vector3(0, 5,-10), scene);
         camera.attachControl(canvas, false);
+        
+        // set WASD key events to move meshes
+        /******* Code modified from https://www.babylonjs-playground.com/#Y1W3F9 ***********************/
+    
+        var map = {}; //object for multiple key presses
+        scene.actionManager = new BABYLON.ActionManager(scene);
+    
+        scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyDownTrigger, function (evt) {
+            map[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
+    
+        }));
+    
+        scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyUpTrigger, function (evt) {
+            map[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
+        }));
+    
+    
+        // move meshes
+        scene.registerAfterRender(function () {
+            var x = 0;
+            var z = 0;
+            if (map["w"] || map["W"]) {
+                z += 0.1;
+            }
+    
+            if (map["z"] || map["Z"]) {
+                z -= 0.1;
+            }
+    
+            if (map["a"] || map["A"]) {
+                x -= 0.1;
+            }
+    
+            if (map["s"] || map["S"]) {
+                x += 0.1;
+            }
+            
+            if (x != 0 || z != 0)
+                moveMeshes(x, z);
+        });
+        /***************************** End borrowed code ***********************************************/
 
         // Create a basic light, aiming 0,1,0 - meaning, to the sky.
         var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0,1,0), scene);
         
         // build the terrain
         buildTerrainMesh(scene);
+        
+        // build the objects
+        buildObjectMeshes(scene);
         
         // set up the water
         var waterSize = 150;
@@ -59,6 +102,7 @@ function rebuildScene(engine, canvas) {
         water.position.y = 0;
         water.position.z = -waterSize/2.0;
         water.material = buildSimpleMaterial(hexToRGB("83e1c3"), scene);
+        meshes.push(water);
         
         // Return the created scene.
         return scene;
@@ -67,29 +111,38 @@ function rebuildScene(engine, canvas) {
     return createScene();
 }
 
+function moveMeshes(dx, dz) {
+    for(var mesh in meshes) {
+        mesh.position.x += dx;
+        mesh.position.z += dz;
+    }
+}
+
+var terrainTypes =    ["level1",  "level2", "level3", "rock",  "sand"];
+var terrainTallness = { //[0.5,       2,        2,        0.6,     0.1]; // how high the layer is compared to the one beneath it
+    "sand": 0.1,
+    "rock": 0.6,
+    "level1": 0.5,
+    "level2": 2,
+    "level3": 2
+};
+var terrainHeights = { // how high the base of the layer is
+    "sand": 0,
+    "rock": terrainTallness["sand"],
+    "level1": terrainTallness["sand"],
+    "level2": terrainTallness["sand"]+terrainTallness["level1"],
+    "level3": terrainTallness["sand"]+terrainTallness["level1"]+terrainTallness["level2"]
+};
+var terrainColors = { 
+    "sand": hexToRGB("eee9a9"),
+    "rock": hexToRGB("737a89"),
+    "level1": hexToRGB("347941"),
+    "level2": hexToRGB("35a043"),
+    "level3": hexToRGB("4ac34e")
+};
+
 function buildTerrainMesh(scene) {
-    var terrainTypes =    ["level1",  "level2", "level3", "rock",  "sand"];
-    var terrainTallness = { //[0.5,       2,        2,        0.6,     0.1]; // how high the layer is compared to the one beneath it
-        "sand": 0.1,
-        "rock": 0.6,
-        "level1": 0.5,
-        "level2": 2,
-        "level3": 2
-    };
-    var terrainHeights = { // how high the base of the layer is
-        "sand": 0,
-        "rock": terrainTallness["sand"],
-        "level1": terrainTallness["sand"],
-        "level2": terrainTallness["sand"]+terrainTallness["level1"],
-        "level3": terrainTallness["sand"]+terrainTallness["level1"]+terrainTallness["level2"]
-    };
-    var terrainColors = { 
-        "sand": hexToRGB("eee9a9"),
-        "rock": hexToRGB("737a89"),
-        "level1": hexToRGB("347941"),
-        "level2": hexToRGB("35a043"),
-        "level3": hexToRGB("4ac34e")
-    };
+    
     console.log("building from: ");
     console.log(mapJSON);
     
@@ -136,8 +189,86 @@ function buildTerrainMesh(scene) {
             polygonMesh.position.y = terrainHeights[layerName] + (terrainTallness[layerName]/2.0); // meshes are positioned based on their centers, so in order to get a mesh's base at a certain height, you also have to add half of its height
         
             polygonMesh.material = terrainMaterials[layerName];
+            
+            meshes.push(polygonMesh);
         }
     }
+}
+
+function buildObjectMeshes(scene) {
+    var outlineheightmap = getOutlineHeightMap();
+    
+    for(object in mapJSON["objects"]) {
+        var objectCoords = mapJSON["objects"][object];
+        for(var i = 0; i < objectCoords.length-1; i += 2) {
+            
+            var height = fillOutlineAndFindHeight(outlineheightmap, objectCoords[i], objectCoords[i+1]);
+            
+            // create a box at height "height"
+            // with back left corner at x=[i] and z=[i+1]
+            var box = BABYLON.MeshBuilder.CreateBox(object+"_"+(i/2), {}, scene);
+            box.position.x = objectCoords[i];
+            box.position.z = objectCoords[i+1];
+            box.position.y = height;
+            
+            // put the box into meshes
+            meshes.push(box);
+        }
+    }
+}
+
+function getOutlineHeightMap() {
+    var outlineheightmap = {};
+    
+    for (var layerName in terrainTypes) {
+        var layer = mapJSON["drawing"][layerName];
+        for(var i = 0; i < layer.length; i++) {
+            for(var j = 0; j < layer[i].length-1; j += 2) {
+                outlineheightmap[layer[i][j]+","+layer[i][j+1]] = terrainHeights[layerName];
+            }
+        }
+    }
+    
+    return outlineheightmap;
+}
+
+function fillOutlineAndFindHeight(outlineheightmap, x, z) {
+    
+    var iterations = 0;
+    var result = -1;
+    var visited = Set();
+    var frontier = [];
+    frontier.push(x+","+z);
+    
+    while (frontier.length > 0) {
+        var coord = frontier.pop();
+        var coordString = coord[0]+","+coord[1];
+        visited.add(coordString);
+        
+        if (outlineheightmap.contsinsKey(coordString)) {
+            result = outlineheightmap[coord];
+            break;
+        }
+        
+        var dx = [-1, 0, 1, 0];
+        var dz = [0, -1, 0, 1];
+        for (var i = 0; i < dx.length; i++) {
+            if (visited.contains( (x+dx[i])+","+(z+dz[i]) )) continue;
+            frontier.push([x+dx[i], z+dz[i]]);
+        }
+        
+        // infinite loop protection
+        iterations++;
+        if (iterations > 99999) {
+            return 0;
+        }
+    }
+    
+    for (var coord in visited) {
+        outlineheightmap[coord] = result;
+    }
+    
+    return result;
 }
 
 
@@ -166,4 +297,69 @@ function hexToRGB(hex) {
     }
     
     return color;
+}
+
+function registerWorldWarpShader() {
+    BABYLON.Effect.ShadersStore["customVertexShader"]=                
+        "precision highp float;\r\n"+
+
+        "// Attributes\r\n"+
+        "attribute vec3 position;\r\n"+
+        "attribute vec2 uv;\r\n"+
+
+        "// Uniforms\r\n"+
+        "uniform mat4 worldViewProjection;\r\n"+
+
+        "// Varying\r\n"+
+        "varying vec2 vUV;\r\n"+
+
+        "// adapted from https://alastaira.wordpress.com/2013/10/25/animal-crossing-curved-world-shader/\r\n"+
+        "// This is where the curvature is applied\r\n"+
+        "vec4 warp(vec4 v, float curvature)\r\n"+
+        "{\r\n"+
+        "    // Now adjust the coordinates to be relative to the camera position\r\n"+
+        "    // I'm actually just going to freeze the camera and move the terrain instead\r\n"+
+        "    vec4 vv = v.xyzw;\r\n"+
+
+        "    // Reduce the y coordinate (i.e. lower the "height") of each vertex based\r\n"+
+        "    // on the square of the distance from the camera in the z axis, multiplied\r\n"+
+        "    // by the chosen curvature factor\r\n"+
+        "    vv = vec4( 0.0f, (vv.z * vv.z) * - curvature, 0.0f, 0.0f );\r\n"+
+
+        "    // Now apply the offset back to the vertices in model space\r\n"+
+        "    v += worldViewProjection * vv;\r\n"+
+        "    return v;\r\n"+
+        "}\r\n"+
+
+        "void main(void) {\r\n"+
+        "    gl_Position = warp(worldViewProjection * vec4(position, 1.0), 0.01);\r\n"+
+
+        "    vUV = uv;\r\n"+
+        "}\r\n"+
+
+
+        BABYLON.Effect.ShadersStore["customFragmentShader"]=                "precision highp float;\r\n"+
+
+        "varying vec2 vUV;\r\n"+
+
+        "uniform sampler2D textureSampler;\r\n"+
+
+        "void main(void) {\r\n"+
+        "    gl_FragColor = texture2D(textureSampler, vUV);\r\n"+
+        "}\r\n";
+
+        // Compile
+        var shaderMaterial = new BABYLON.ShaderMaterial
+        (
+            "shader", 
+            scene, 
+            {
+                vertex: "custom",
+                fragment: "custom",
+            },
+            {
+                attributes: ["position", "normal", "uv"],
+                uniforms: ["world", "worldView", "worldViewProjection", "view", "projection"]
+            }
+        );
 }
