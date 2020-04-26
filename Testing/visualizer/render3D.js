@@ -241,8 +241,9 @@ function buildObjectMeshes(scene) {
 function getOutlineHeightMap() {
     var outlineheightmap = {};
     
-    for (var layerName in terrainTypes) {
-        var layer = mapJSON["drawing"][layerName];
+    for(var k = 0; k < terrainTypes.length; k++) {
+        var layerName = terrainTypes[k];
+        var layer =  mapJSON["drawing"][layerName];
         for(var i = 0; i < layer.length; i++) {
             for(var j = 0; j < layer[i].length-1; j += 2) {
                 outlineheightmap[layer[i][j]+","+layer[i][j+1]] = terrainHeights[layerName];
