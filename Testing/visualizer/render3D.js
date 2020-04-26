@@ -114,8 +114,13 @@ function rebuildScene(engine, canvas) {
         buildTerrainMesh(scene);
         
         // build the objects
-        buildObjectMeshes(scene);
-        
+        // note: try/catch for debugging only
+        try {
+            buildObjectMeshes(scene);
+        } catch (err) {
+            console.log(err.message);
+        }
+            
         // set up the water
         var waterSize = 150;
         var water = BABYLON.MeshBuilder.CreateGround('water', {height:waterSize, width:waterSize, subdivisions: 2}, scene);
