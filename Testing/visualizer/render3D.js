@@ -38,6 +38,8 @@ function rebuildScene(engine, canvas) {
         return null;
     
     var createScene = function() {
+        console.log(terrainTypes);
+        
         // Create a basic BJS Scene object.
         var scene = new BABYLON.Scene(engine);
 
