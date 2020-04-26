@@ -30,7 +30,7 @@ var meshes = [];
 
 function rebuildScene(engine, canvas) {
     imageRead = false; 
-    meshes.clear();
+    meshes = [];
     
     console.log("building new scene");
     
@@ -46,45 +46,66 @@ function rebuildScene(engine, canvas) {
         camera.attachControl(canvas, false);
         
         // set WASD key events to move meshes
-        /******* Code modified from https://www.babylonjs-playground.com/#Y1W3F9 ***********************/
+        /******* Code modified from https://www.babylonjs-playground.com/#Y1W3F9 ***********************/
+
     
-        var map = {}; //object for multiple key presses
-        scene.actionManager = new BABYLON.ActionManager(scene);
+        var map = {}; //object for multiple key presses
+
+        scene.actionManager = new BABYLON.ActionManager(scene);
+
     
-        scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyDownTrigger, function (evt) {
-            map[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
+        scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyDownTrigger, function (evt) {
+
+            map[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
+
     
-        }));
+        }));
+
     
-        scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyUpTrigger, function (evt) {
-            map[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
-        }));
+        scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyUpTrigger, function (evt) {
+
+            map[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
+
+        }));
+
     
     
         // move meshes
-        scene.registerAfterRender(function () {
+        scene.registerAfterRender(function () {
+
             var x = 0;
             var z = 0;
-            if (map["w"] || map["W"]) {
-                z += 0.1;
+            if (map["w"] || map["W"]) {
+
+                z += 0.1;
+
             }
     
-            if (map["z"] || map["Z"]) {
+            if (map["z"] || map["Z"]) {
+
                 z -= 0.1;
             }
     
-            if (map["a"] || map["A"]) {
-                x -= 0.1;
-            }
+            if (map["a"] || map["A"]) {
+
+                x -= 0.1;
+
+            }
+
     
-            if (map["s"] || map["S"]) {
-                x += 0.1;
-            }
+            if (map["s"] || map["S"]) {
+
+                x += 0.1;
+
+            }
+
             
             if (x != 0 || z != 0)
                 moveMeshes(x, z);
-        });
-        /***************************** End borrowed code ***********************************************/
+        });
+
+        /***************************** End borrowed code ***********************************************/
+
 
         // Create a basic light, aiming 0,1,0 - meaning, to the sky.
         var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0,1,0), scene);
@@ -238,22 +259,22 @@ function fillOutlineAndFindHeight(outlineheightmap, x, z) {
     var result = -1;
     var visited = Set();
     var frontier = [];
-    frontier.push(x+","+z);
+    frontier.push([x,z]);
     
     while (frontier.length > 0) {
         var coord = frontier.pop();
         var coordString = coord[0]+","+coord[1];
         visited.add(coordString);
         
-        if (outlineheightmap.contsinsKey(coordString)) {
-            result = outlineheightmap[coord];
+        if (outlineheightmap.has(coordString)) {
+            result = outlineheightmap[coordString];
             break;
         }
         
         var dx = [-1, 0, 1, 0];
         var dz = [0, -1, 0, 1];
         for (var i = 0; i < dx.length; i++) {
-            if (visited.contains( (x+dx[i])+","+(z+dz[i]) )) continue;
+            if (visited.has( (x+dx[i])+","+(z+dz[i]) )) continue;
             frontier.push([x+dx[i], z+dz[i]]);
         }
         
