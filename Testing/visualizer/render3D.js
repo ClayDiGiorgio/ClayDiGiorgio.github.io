@@ -47,8 +47,9 @@ function rebuildScene(engine, canvas) {
         var camera = new BABYLON.FollowCamera('camera', new BABYLON.Vector3(0, 5,-10), scene);
         camera.attachControl(canvas, false);
         
+        /*
         // set WASD key events to move meshes
-        /******* Code modified from https://www.babylonjs-playground.com/#Y1W3F9 ***********************/
+        // ******* Code modified from https://www.babylonjs-playground.com/#Y1W3F9 ***********************
 
     
         var map = {}; //object for multiple key presses
@@ -106,7 +107,8 @@ function rebuildScene(engine, canvas) {
                 moveMeshes(x, z);
         });
 
-        /***************************** End borrowed code ***********************************************/
+        // ***************************** End borrowed code ***********************************************
+        */
 
 
         // Create a basic light, aiming 0,1,0 - meaning, to the sky.
@@ -146,30 +148,44 @@ function moveMeshes(dx, dz) {
     }
 }
 
-var terrainTypes =    ["level1",  "level2", "level3", "rock",  "sand"];
-var terrainTallness = { //[0.5,       2,        2,        0.6,     0.1]; // how high the layer is compared to the one beneath it
-    "sand": 0.1,
-    "rock": 0.6,
-    "level1": 0.5,
-    "level2": 2,
-    "level3": 2
-};
-var terrainHeights = { // how high the base of the layer is
-    "sand": 0,
-    "rock": terrainTallness["sand"],
-    "level1": terrainTallness["sand"],
-    "level2": terrainTallness["sand"]+terrainTallness["level1"],
-    "level3": terrainTallness["sand"]+terrainTallness["level1"]+terrainTallness["level2"]
-};
-var terrainColors = { 
-    "sand": hexToRGB("eee9a9"),
-    "rock": hexToRGB("737a89"),
-    "level1": hexToRGB("347941"),
-    "level2": hexToRGB("35a043"),
-    "level3": hexToRGB("4ac34e")
-};
+function getParameters() {
+    var terrainTypes =    ["level1",  "level2", "level3", "rock",  "sand"];
+    var terrainTallness = { //[0.5,       2,        2,        0.6,     0.1]; // how high the layer is compared to the one beneath it
+        "sand": 0.1,
+        "rock": 0.6,
+        "level1": 0.5,
+        "level2": 2,
+        "level3": 2
+    };
+    var terrainHeights = { // how high the base of the layer is
+        "sand": 0,
+        "rock": terrainTallness["sand"],
+        "level1": terrainTallness["sand"],
+        "level2": terrainTallness["sand"]+terrainTallness["level1"],
+        "level3": terrainTallness["sand"]+terrainTallness["level1"]+terrainTallness["level2"]
+    };
+    var terrainColors = { 
+        "sand": hexToRGB("eee9a9"),
+        "rock": hexToRGB("737a89"),
+        "level1": hexToRGB("347941"),
+        "level2": hexToRGB("35a043"),
+        "level3": hexToRGB("4ac34e")
+    };
+    
+    return {
+        "terrainTypes": terrainTypes,
+        "terrainTallness": terrainTallness,
+        "terrainHeights": terrainHeights,
+        "terrainColors": terrainColors
+    };
+}
 
 function buildTerrainMesh(scene) {
+    var params = getParameters();
+    var terrainTypes = params["terrainTypes"];
+    var terrainTallness = params["terrainTallness"];
+    var terrainHeights = params["terrainHeights"];
+    var terrainColors = params["terrainColors"];
     
     console.log("building from: ");
     console.log(mapJSON);
