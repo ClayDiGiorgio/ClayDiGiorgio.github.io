@@ -1,0 +1,21 @@
+#flashcard {
+    display: block;
+    width:600px;
+    height:200px;
+    background:#D3D3D3;
+    
+    text-align:center;
+    line-height:100px;
+}
+
+.flashcard {
+    width: 20%;
+    height: 40%;
+    
+    width:300px;
+    height:100px;
+    background:#D3D3D3;
+    
+    text-align:center;
+    /*line-height:100px;*/
+}
