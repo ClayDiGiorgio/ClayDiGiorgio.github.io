@@ -38,16 +38,21 @@ function rebuildScene(engine, canvas) {
         return null;
     
     var createScene = function() {
-        console.log(terrainTypes);
+        //console.log(terrainTypes);
         
         // Create a basic BJS Scene object.
         var scene = new BABYLON.Scene(engine);
 
         // Create a camera that doesn't move
-        var camera = new BABYLON.FollowCamera('camera', new BABYLON.Vector3(0, 5,-10), scene);
-        camera.attachControl(canvas, false);
+        var cameraFocus = BABYLON.MeshBuilder.CreateBox("cameraFocus", {}, scene);
+        cameraFocus.position.x = 0;
+        cameraFocus.position.z = 0;
+        cameraFocus.position.y = 0;
         
-        /*
+        var camera = new BABYLON.FollowCamera('camera', new BABYLON.Vector3(0, 5, 10), scene, cameraFocus);
+        camera.attachControl(canvas, false);
+        camera.inputs.clear();
+        
         // set WASD key events to move meshes
         // ******* Code modified from https://www.babylonjs-playground.com/#Y1W3F9 ***********************
 
@@ -108,7 +113,7 @@ function rebuildScene(engine, canvas) {
         });
 
         // ***************************** End borrowed code ***********************************************
-        */
+        
 
 
         // Create a basic light, aiming 0,1,0 - meaning, to the sky.
