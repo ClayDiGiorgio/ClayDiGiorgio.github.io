@@ -20,6 +20,8 @@ Memorized <span id="memNum">0</span> / <span id="numCards2"></span>
 
 <button id="shuffle" onclick="shuffle()">shuffle</button>
 <br>
+Default to Back of Card: <input type="checkbox" id="defaultToBack">
+<br>
 
 <button id="flashcard" onclick="flip()">
 </button>
@@ -73,6 +75,7 @@ var flashcard = document.getElementById("flashcard");
 var cardNumLabel = document.getElementById("cardNum");
 var numCardsLabel = document.getElementById("numCards");
 var numCardsMemorizedLabel = document.getElementById("memNum");
+var defaultToBack = document.getElementById("defaultToBack");
 
 numCardsLabel.textContent = cards.length;
 document.getElementById("numCards2").textContent = cards.length;
@@ -106,7 +109,7 @@ function gotoCard(c) {
     if (index < 0)
         index = 0;
     
-    onFront = true;
+    onFront = !defaultToBack.checked;
     setCardText();
 }
 
