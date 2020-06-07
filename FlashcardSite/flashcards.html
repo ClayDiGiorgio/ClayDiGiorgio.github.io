@@ -209,12 +209,21 @@ for(var i = 0; i < cardsMaster.length; i++)
     cardButton.className = "flashcard";
     cardButton.textContent = cardsMaster[i][0];
     cardButton.id = "flashcard"+i;
-    
-    document.getElementById("flashcard"+i).onclick = function() { console.log("clicked " + i); flipped[i] = !flipped[i]; renderText(); };
+    cardButton.onclick = createClickFunction(i);
 }
 
 renderText();
 
+
+function createClickFunction(i)
+{
+    return function() 
+    { 
+        console.log("clicked " + i); 
+        flipped[i] = !flipped[i]; 
+        renderText(); 
+    };
+}
 
 
 function renderText()
