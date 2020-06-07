@@ -89,7 +89,16 @@ var cardsMaster = [];
 
 for (let match of rawFlashcardText.matchAll(/(.+)	(.+)\n/g))
 {
-    cardsMaster.push([match[1], match[2]]);
+    var sec = "";
+    for (let line of match[2].matchAll(/(.(?!\\\\))+/g))//(/(.+)\\\\/g))
+    {
+        sec += "$$"+line[0]+"$$";
+    }
+    
+    if (sec == "")
+        sec = "$$" + match[2] + "$$";
+    
+    cardsMaster.push([match[1], sec]);
 }
 
 </script>
@@ -128,7 +137,7 @@ setCardText();
 function setCardText() {
     if (!onFront)
     {
-        flashcard.textContent = "$$" + cards[index][1] + "$$";
+        flashcard.textContent = cards[index][1];
         MathJax.typeset();
     }
     else
@@ -219,7 +228,7 @@ function createClickFunction(i)
 {
     return function() 
     { 
-        console.log("clicked " + i); 
+        console.log(cardsMaster[i][1]); 
         flipped[i] = !flipped[i]; 
         renderText(); 
     };
@@ -231,7 +240,7 @@ function renderText()
     for(var i = 0; i < cardsMaster.length; i++)
     {
         if (flipped[i])
-            buttons[i].textContent = "$$" + cardsMaster[i][1] + "$$";
+            buttons[i].textContent = cardsMaster[i][1];
         else
             buttons[i].textContent = cardsMaster[i][0];
     }

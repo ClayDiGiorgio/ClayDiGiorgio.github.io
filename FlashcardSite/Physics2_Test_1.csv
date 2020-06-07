@@ -56,3 +56,4 @@
 (Formula) Kinetic energy,U_K=\frac{1}{2}mv^2
 (Formula) displacement due to constant acceleration,d=v_0t+\frac{1}{2}at^2
 (Formula) acceleration given two velocities and a distance,a=\frac{v_f^2-v_0^2}{2d}
+(Formula) Spring Constant (Hooke’s Law),F=-k_sΔL \\ \text{where ΔL=change in length of the spring} \\ \text{and } k_s \text{ is the spring constant of the spring material}
