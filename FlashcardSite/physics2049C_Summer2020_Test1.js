@@ -1,4 +1,4 @@
-var rawFlashcardText = String.raw`(Constants) Coulomb's Constant	k_e=8.99ᴇ9\frac{Nm^{2}}{C^{2}} \\ k_e=\frac{1}{4πƐ_0}
+var rawFlashcardText = String.raw`(Constants) Coulomb's Constant	k_e=8.99ᴇ9\frac{Nm^{2}}{C^{2}} \\ \text{     } k_e=\frac{1}{4πƐ_0}
 (Constants) Permittivity of Free Space	Ɛ_0=8.85ᴇ\text{ -}12\frac{C^{2}}{Nm^{2}}
 (Constants) Elementary Charge	e=1.60ᴇ\text{ -}19\text{ }C
 (Constants) Proton Mass	m_p=1.67ᴇ\text{ -}27\text{ }kg
@@ -12,10 +12,10 @@ var rawFlashcardText = String.raw`(Constants) Coulomb's Constant	k_e=8.99ᴇ9\fr
 (Formula) Coulomb's Law	F_E=k_e\frac{q_1q_2}{r^2}
 (Formula) Force from Electric Field	F_E=qE_{@q}
 (Formula) Electric Field	E=k_e\frac{q}{r^2}
-(Formula) Electric Field at Center of Charged Finite Wire	E=\frac{kλL}{a}*\frac{1}{\sqrt{(\frac{L}{2})^2+a^2}}  \\ \text{a = distance from rod}
-(Formula) Electric Field at Center of Charged Infinite Wire	E=\frac{2kλ}{a} \\ \text{a = distance from rod}
-(Formula) Electric Field at Axis of Charged Ring	E=\frac{kQa}{(r^2+a^2)^\frac{3}{2}}  \\ \text{a = distance from center of ring} \\ \text{r = radius of the ring}
-(Formula) Electric Field at Axis of Charged Disc	E=\frac{σ}{2Ɛ_0}[1-\frac{a}{\sqrt{r^2+a^2}}]  \\ \text{a = distance from center of disc} \\ \text{r = radius of the disc}
+(Formula) Electric Field at Center of Charged Finite Wire	E=\frac{kλL}{a}*\frac{1}{\sqrt{(\frac{L}{2})^2+a^2}}  \\ \text{     } \text{a = distance from rod}
+(Formula) Electric Field at Center of Charged Infinite Wire	E=\frac{2kλ}{a} \\ \text{     } \text{a = distance from rod}
+(Formula) Electric Field at Axis of Charged Ring	E=\frac{kQa}{(r^2+a^2)^\frac{3}{2}}  \\ \text{     } \text{a = distance from center of ring} \\ \text{     } \text{r = radius of the ring}
+(Formula) Electric Field at Axis of Charged Disc	E=\frac{σ}{2Ɛ_0}[1-\frac{a}{\sqrt{r^2+a^2}}]  \\ \text{     } \text{a = distance from center of disc} \\ \text{     } \text{r = radius of the disc}
 	
 (Formula) Gauss' Law for Constant E at Constant angle to chosen surface	\text{(Electric Flux)   }ɸ=\vec{E}·\vec{A}=EAcosθ
 (Formula) Gauss' Law Integration	ɸ=\int{\vec{E}·\vec{dA}}
@@ -27,9 +27,9 @@ var rawFlashcardText = String.raw`(Constants) Coulomb's Constant	k_e=8.99ᴇ9\fr
 (Formula) Electric Potential Energy stored in a Flat Plate Capacitor	U_E=\frac{1}{2}QV=\frac{1}{2}CV^2=\frac{1}{2}*\frac{Q^2}{C}
 (Formula) Energy Density of a Flat Plate Capacitor	u=\frac{1}{2}Ɛ_0E^2
 (Formula) Electric Field inside a Flat Plate Capacitor	E=\frac{σ}{Ɛ_0}=\frac{V}{d}
-(Formula) Capacitance of a Flat Plate Capacitor	C=\frac{K_MƐ_0A}{d} \\ K_M\text{ = Capacitance constant of the dielectric (property of the material)} \\ \text{d = separation of the two plates} \\ \text{A = area of one of the plates}
-(Formula) New Voltage After Inserting a Dielectric	V_f=\frac{V_0}{K_M} \\ K_M\text{ = Capacitance constant of the dielectric (property of the material)}
-(Formula) New Capacitance After Inserting a Dielectric	C_f=K_MC_0 \\ K_M\text{ = Capacitance constant of the dielectric (property of the material)}
+(Formula) Capacitance of a Flat Plate Capacitor	C=\frac{K_MƐ_0A}{d} \\ \text{     } K_M\text{ = Capacitance constant of the dielectric (property of the material)} \\ \text{     } \text{d = separation of the two plates} \\ \text{     } \text{A = area of one of the plates}
+(Formula) New Voltage After Inserting a Dielectric	V_f=\frac{V_0}{K_M} \\ \text{     } K_M\text{ = Capacitance constant of the dielectric (property of the material)}
+(Formula) New Capacitance After Inserting a Dielectric	C_f=K_MC_0 \\ \text{     } K_M\text{ = Capacitance constant of the dielectric (property of the material)}
 (Formula) Stuff about cylindrical capacitors, to be added	TBA
 	
 (Formula) Area of a Circle	A=πr^2
@@ -40,17 +40,17 @@ var rawFlashcardText = String.raw`(Constants) Coulomb's Constant	k_e=8.99ᴇ9\fr
 (Formula) Electric Potential at a given location (relative to infinitely far away) due to a point charge	V=k_e\frac{q}{r}
 (Formula) Electric Potential due to a continuous charge (at a given point , relative to infinitely far away)	V=\int{k_e\frac{dq}{r}}
 (Formula) Change in Voltage between two points A and B in a constant electric field	ΔV_{AB}=-Elcosθ
-(Formula) Voltage at (any point on) the surface of a sphere	V=k_e\frac{Q}{R} \\ \text{R = radius of the sphere}
-(Formula) Voltage at axis of charged ring  ?	V=k_eQ\frac{a}{(r^2+a^2)^{\frac{3}{2}}} \\ \text{a = distance from center of ring} \\ \text{r = radius of the ring}
-(Formula) Voltage at axis of charged disc  ?	V=2πk_eσ \\ \text{a = distance from center of disc} \\ \text{r = radius of the disc}
-(Formula) Voltage at a distance from the center of a finite charged rod ?	V=\frac{k_eQ}{L}\ln{\frac{L+\sqrt{a^2+L^2}}{a}} \\ \text{L = length of rod} \\ \text{a = distance from rod}
-(Formula) Voltage inside sphere	V=\frac{k_eQ}{2R}(3-\frac{r^2}{R^2})\\ \text{R = radius of sphere}
+(Formula) Voltage at (any point on) the surface of a sphere	V=k_e\frac{Q}{R} \\ \text{     } \text{R = radius of the sphere}
+(Formula) Voltage at axis of charged ring  ?	V=k_eQ\frac{a}{(r^2+a^2)^{\frac{3}{2}}} \\ \text{     } \text{a = distance from center of ring} \\ \text{     } \text{r = radius of the ring}
+(Formula) Voltage at axis of charged disc  ?	V=2πk_eσ \\ \text{     } \text{a = distance from center of disc} \\ \text{     } \text{r = radius of the disc}
+(Formula) Voltage at a distance from the center of a finite charged rod ?	V=\frac{k_eQ}{L}\ln{\frac{L+\sqrt{a^2+L^2}}{a}} \\ \text{     } \text{L = length of rod} \\ \text{     } \text{a = distance from rod}
+(Formula) Voltage inside sphere	V=\frac{k_eQ}{2R}(3-\frac{r^2}{R^2})\\ \text{     } \text{R = radius of sphere}
 	
 (Formula) Change in Electric Potential Energy	ΔU_{AB}=U_A-U_B=-W_{AB}
-(Formula) Change in Electric Potential Energy (integral)	ΔU_{AB}=-\int{Q\vec{E}·\vec{dL}}_A^B \\ \text{where L is the path taken between A and B}
+(Formula) Change in Electric Potential Energy (integral)	ΔU_{AB}=-\int_A^BQ\vec{E}·\vec{dL} \\ \text{     } \text{where L is the path taken between A and B}
 (Formula) Work to move a charge across a voltage difference	W_{AB}=-qΔV_{AB}
 (Formula) Electric potential energy of a charge at a point (with respect to that charge infinitely far away) with a given voltage (with respect to a point infinitely far away)	U_A=qV_A
-(Formula) Potential Electric Energy of a collection of point charges	U_E=Σ_{i,j}k_e\frac{Q_iQ_j}{r_{i,j}} \\ Note: do not count a pair twice, eg as U_{1,2} and U_{2,1}
+(Formula) Potential Electric Energy of a collection of point charges	U_E=Σ_{i,j}k_e\frac{Q_iQ_j}{r_{i,j}} \\ \text{     } Note: do not count a pair twice, eg as U_{1,2} and U_{2,1}
 	
 (Formula) Definition of work	W=Fd
 (Formula) Kinetic energy	U_K=\frac{1}{2}mv^2

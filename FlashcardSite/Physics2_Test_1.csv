@@ -24,7 +24,7 @@
 "(Formula) Electric Flux In a Parallel, but Varying Electric Field (eg a box in an electric field perpendicular to its top and bottom faces, but with different values for the top compared to the bottom)",ɸ=ɸ_{out}-ɸ_{in}
 ,
 (Formula) Capacitor Charge and Voltage,Q=CV
-(Formula) Electric Potential of a Flat Plate Capacitor,U_E=\frac{1}{2}QV=\frac{1}{2}CV^2=\frac{1}{2}*\frac{Q^2}{C}
+(Formula) Electric Potential Energy stored in a Flat Plate Capacitor,U_E=\frac{1}{2}QV=\frac{1}{2}CV^2=\frac{1}{2}*\frac{Q^2}{C}
 (Formula) Energy Density of a Flat Plate Capacitor,u=\frac{1}{2}Ɛ_0E^2
 (Formula) Electric Field inside a Flat Plate Capacitor,E=\frac{σ}{Ɛ_0}=\frac{V}{d}
 (Formula) Capacitance of a Flat Plate Capacitor,C=\frac{K_MƐ_0A}{d} \\ K_M\text{ = Capacitance constant of the dielectric (property of the material)} \\ \text{d = separation of the two plates} \\ \text{A = area of one of the plates}
@@ -47,13 +47,12 @@
 (Formula) Voltage inside sphere,V=\frac{k_eQ}{2R}(3-\frac{r^2}{R^2})\\ \text{R = radius of sphere}
 ,
 (Formula) Change in Electric Potential Energy,ΔU_{AB}=U_A-U_B=-W_{AB}
-(Formula) Change in Electric Potential Energy (integral),ΔU_{AB}=-\int{Q\vec{E}·\vec{dL}}_A^B \\ \text{where L is the path taken between A and B}
+(Formula) Change in Electric Potential Energy (integral),ΔU_{AB}=-\int_A^BQ\vec{E}·\vec{dL} \\ \text{where L is the path taken between A and B}
 (Formula) Work to move a charge across a voltage difference,W_{AB}=-qΔV_{AB}
 (Formula) Electric potential energy of a charge at a point (with respect to that charge infinitely far away) with a given voltage (with respect to a point infinitely far away),U_A=qV_A
 (Formula) Potential Electric Energy of a collection of point charges,"U_E=Σ_{i,j}k_e\frac{Q_iQ_j}{r_{i,j}} \\ Note: do not count a pair twice, eg as U_{1,2} and U_{2,1}"
-(Formula) Work to charge a capacitor (also the potential energy stored in a capacitor),
 ,
-(Formula) Definition of work,
-(Formula) Kinetic energy,
-(Formula) displacement due to constant acceleration,
-(Formula) acceleration given two velocities and a distance,
+(Formula) Definition of work,W=Fd
+(Formula) Kinetic energy,U_K=\frac{1}{2}mv^2
+(Formula) displacement due to constant acceleration,d=v_0t+\frac{1}{2}at^2
+(Formula) acceleration given two velocities and a distance,a=\frac{v_f^2-v_0^2}{2d}
