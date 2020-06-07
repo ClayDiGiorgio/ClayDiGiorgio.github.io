@@ -17,7 +17,7 @@
 
 
 
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 
 <!--
@@ -80,29 +80,18 @@ Javascript
 =======================
 -->
 
+<script type="text/javascript"
+        src="physics2049C_Summer2020_Test1.js">  
+</script>  
+
 <script>
-var cardsMaster =[[String.raw`(Constants) Coulomb's Constant`, String.raw`k_e=8.99ᴇ9\frac{Nm^{2}}{C^{2}}`],
-[String.raw`(Constants) Permittivity of Free Space`, String.raw`Ɛ_0=8.85ᴇ\text{ -}12\frac{C^{2}}{Nm^{2}}`],
-[String.raw`(Constants) Elementary Charge`, String.raw`e=1.60ᴇ\text{ -}19\text{ }C`],
-[String.raw`(Constants) Proton Mass`, String.raw`m_p=1.67ᴇ\text{ -}27\text{ }kg`],
-[String.raw`(Constants) Electron Mass`, String.raw`m_e=9.11ᴇ\text{ -}31\text{ }kg`],
-[String.raw`(Units) Farads`, String.raw`F=\frac{C}{V}\text{   (unit of Capacitance)}`],
-[String.raw`(Units) Electric Field`, String.raw`\frac{V}{m}=\frac{N}{C}`],
-[String.raw`(Units) Liters`, String.raw`1m^3=1ᴇ3\text{  }L`],
-[String.raw`(Units) Newtons`, String.raw`N=kg\frac{m}{s^2}`],
-[String.raw`(Formula) Coulomb's Law`, String.raw`F_E=k_e\frac{q_1q_2}{r^2}`],
-[String.raw`(Formula) Force from Electric Field`, String.raw`F_E=qE_{@q}`],
-[String.raw`(Formula) Electric Field`, String.raw`E=k_e\frac{q}{r^2}`],
-[String.raw`(Formula) Electric Field at Center of Charged Finite Wire`, String.raw`E=\frac{kλL}{a}*\frac{1}{\sqrt{(\frac{L}{2})^2+a^2}}`],
-[String.raw`(Formula) Electric Field at Center of Charged Infinite Wire`, String.raw`E=\frac{2kλ}{a}`],
-[String.raw`(Formula) Electric Field at Axis of Charged Ring`, String.raw`E=\frac{kQa}{(r^2+a^2)^\frac{3}{2}}`],
-[String.raw`(Formula) Electric Field at Axis of Charged Disc`, String.raw`E=\frac{σ}{2Ɛ_0}[1-\frac{a}{\sqrt{r^2+a^2}}]`],
-[String.raw`(Formula) Gauss' Law for Constant E at Constant angle to chosen surface`, String.raw`\text{(Electric Flux)   }ɸ=\vec{E}·\vec{A}=EAcosθ`],
-[String.raw`(Formula) Gauss' Law Integration`, String.raw`ɸ=\int{\vec{E}·\vec{dA}}`],
-[String.raw`(Formula) Gauss' Law for a Closed Surface`, String.raw`ɸ=\frac{Σq_{contained}}{Ɛ_0}`],
-[String.raw`(Formula) Gauss' Law applied to an ideally chosen surface`, String.raw`EA=\frac{Σq_{contained}}{Ɛ_0}`],
-[String.raw`(Formula) Electric Flux In a Parallel, but Varying Electric Field`, String.raw`ɸ=ɸ_{out}-ɸ_{in}`],
-[String.raw`(Formula) Coulomb's Law`, String.raw``]];
+var cardsMaster = [];
+
+for (let match of rawFlashcardText.matchAll(/(.+)	(.+)\n/g))
+{
+    cardsMaster.push([match[1], match[2]]);
+}
+
 </script>
 
 <!--CARD QUIZ SCRIPT-->
@@ -219,7 +208,7 @@ for(var i = 0; i < cardsMaster.length; i++)
     
     cardButton.className = "flashcard";
     cardButton.textContent = cardsMaster[i][0];
-    cardButton.onClick = function() { flipped[i] = !flipped[i]; renderText(); }
+    cardButton.onClick = function() { Console.log("clicked " + i); flipped[i] = !flipped[i]; renderText(); };
 }
 
 renderText();
@@ -231,7 +220,7 @@ function renderText()
     for(var i = 0; i < cardsMaster.length; i++)
     {
         if (flipped[i])
-            buttons[i].textContent = cardsMaster[i][1];
+            buttons[i].textContent = "$$" + cardsMaster[i][1] + "$$";
         else
             buttons[i].textContent = cardsMaster[i][0];
     }

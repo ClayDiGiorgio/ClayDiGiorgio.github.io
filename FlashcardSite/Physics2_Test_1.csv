@@ -41,5 +41,19 @@
 "(Formula) Electric Potential due to a continuous charge (at a given point , relative to infinitely far away)",V=\int{k_e\frac{dq}{r}}
 (Formula) Change in Voltage between two points A and B in a constant electric field,ΔV_{AB}=-Elcosθ
 (Formula) Voltage at (any point on) the surface of a sphere,V=k_e\frac{Q}{R} \\ \text{R = radius of the sphere}
-(Formula) Voltage at axis of charged ring,V=k_eQ\frac{a}{(r^2+a^2)^{\frac{3}{2}}} \\ \text{a = distance from center of ring} \\ \text{r = radius of the ring}
-(Formula) Voltage at axis of charged disc,V=2πk_eσ \\ \text{a = distance from center of disc} \\ \text{r = radius of the disc}
+(Formula) Voltage at axis of charged ring  ?,V=k_eQ\frac{a}{(r^2+a^2)^{\frac{3}{2}}} \\ \text{a = distance from center of ring} \\ \text{r = radius of the ring}
+(Formula) Voltage at axis of charged disc  ?,V=2πk_eσ \\ \text{a = distance from center of disc} \\ \text{r = radius of the disc}
+(Formula) Voltage at a distance from the center of a finite charged rod ?,V=\frac{k_eQ}{L}\ln{\frac{L+\sqrt{a^2+L^2}}{a}} \\ \text{L = length of rod} \\ \text{a = distance from rod}
+(Formula) Voltage inside sphere,V=\frac{k_eQ}{2R}(3-\frac{r^2}{R^2})\\ \text{R = radius of sphere}
+,
+(Formula) Change in Electric Potential Energy,ΔU_{AB}=U_A-U_B=-W_{AB}
+(Formula) Change in Electric Potential Energy (integral),ΔU_{AB}=-\int{Q\vec{E}·\vec{dL}}_A^B \\ \text{where L is the path taken between A and B}
+(Formula) Work to move a charge across a voltage difference,W_{AB}=-qΔV_{AB}
+(Formula) Electric potential energy of a charge at a point (with respect to that charge infinitely far away) with a given voltage (with respect to a point infinitely far away),U_A=qV_A
+(Formula) Potential Electric Energy of a collection of point charges,"U_E=Σ_{i,j}k_e\frac{Q_iQ_j}{r_{i,j}} \\ Note: do not count a pair twice, eg as U_{1,2} and U_{2,1}"
+(Formula) Work to charge a capacitor (also the potential energy stored in a capacitor),
+,
+(Formula) Definition of work,
+(Formula) Kinetic energy,
+(Formula) displacement due to constant acceleration,
+(Formula) acceleration given two velocities and a distance,
